@@ -16,14 +16,18 @@
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:orientation="vertical">
+        <LinearLayout android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="70dp"
+            android:orientation="vertical">
 
             <AutoCompleteTextView android:id="@+id/username" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="@string/prompt_username"
                 android:inputType="textEmailAddress" android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="#FFFFFF"
+                android:gravity="center"
                 android:textColorHint="#FFFFFF"/>
 
             <EditText android:id="@+id/password" android:layout_width="match_parent"
@@ -31,6 +35,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1" android:singleLine="true"
                 android:textColor="#FFFFFF"
+                android:gravity="center"
                 android:textColorHint="#FFFFFF"/>
 
             <EditText android:id="@+id/card_id" android:layout_width="match_parent"
@@ -39,17 +44,23 @@
                 android:maxLines="1" android:singleLine="true"
                 android:editable="false"
                 android:textColor="#FFFFFF"
-                android:textColorHint="#FFFFFF"/>
+                android:gravity="center"
+                android:textColorHint="#FFFFFF"
+                />
 
             <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" android:text="@string/action_sign_in"
+                android:background="@color/light_blue"
+                android:textColor="@color/white"
                 android:textStyle="bold"/>
 
             <Button android:id="@+id/clear_all" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" android:text="@string/action_clear_all"
                 android:textStyle="bold"
+                android:background="@color/light_blue"
+                android:textColor="@color/white"
                 android:onClick="clearAll"/>
 
         </LinearLayout>
