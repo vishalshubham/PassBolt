@@ -72,7 +72,7 @@ public class Database extends SQLiteOpenHelper {
 
         storeItemInstance("Gmail", "hackthenorth4@gmail.com", "Passbolt");
         storeItemInstance("Gmail", "vishal.shubham@gmail.com", "Passbolt");
-        //storeItemInstance("Gmail", "hackthenorth4@gmail.com", "Passbolt");
+        storeItemInstance("Gmail", "waterloopassbolt@gmail.com", "waterlo321");
     }
 
     @Override
@@ -93,7 +93,7 @@ public class Database extends SQLiteOpenHelper {
     public void storeItem(String category, String item, String url, String icon){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        Log.d(DEBUGTAG, "Category: " + category + " :::::: Item: " + item + " :::::: Url: " + url + " :::::: Icon: " + icon);
+        Log.d(DEBUGTAG, "Category: " + category + " :::::: IItem: " + item + " :::::: Url: " + url + " :::::: Icon: " + icon);
         values.put(ITEM_NAME, item);
         values.put(ITEM_CAT, category);
         values.put(ITEM_URL, url);
@@ -105,7 +105,7 @@ public class Database extends SQLiteOpenHelper {
     public void storeItemInstance(String item, String username, String password){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        Log.d(DEBUGTAG, "Item: " + item + " :::::: Username: " + username + " :::::: Password: " + password);
+        Log.d(DEBUGTAG, "IItem: " + item + " :::::: Username: " + username + " :::::: Password: " + password);
         values.put(ITEM_NAME, item);
         values.put(ITEM_INSTANCE_USERNAME, username);
         values.put(ITEM_INSTANCE_PASSWORD, password);
@@ -113,8 +113,8 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<String> getCategory(){
-        List<String> categories = new ArrayList<String>();
+    public List<Node_Category> getCategory(){
+        List<Node_Category> categories = new ArrayList<Node_Category>();
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -124,14 +124,15 @@ public class Database extends SQLiteOpenHelper {
 
         while(cursor.moveToNext()){
             String category = cursor.getString(0);
-            categories.add(category);
+            String icon = cursor.getString(1);
+            categories.add(new Node_Category(category, icon));
         }
         db.close();
         return categories;
     }
 
-    public List<String> getItem(String category){
-        List<String> items = new ArrayList<String>();
+    public List<Node_Item> getItem(String category){
+        List<Node_Item> items = new ArrayList<Node_Item>();
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -140,8 +141,31 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sql, null);
 
         while(cursor.moveToNext()){
-            String item = cursor.getString(0);
-            items.add(item);
+            String item_name = cursor.getString(0);
+            String item_category = cursor.getString(1);
+            String item_url = cursor.getString(2);
+            String item_icon = cursor.getString(3);
+            items.add(new Node_Item(item_category, item_name, item_url, item_icon));
+        }
+        db.close();
+        return items;
+    }
+
+    public List<Node_Item> getItemInstance(String item_instance){
+        List<Node_Item> items = new ArrayList<Node_Item>();
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        String sql = String.format("select * from %s where ITEM_CAT = %s", ITEM_TABLE, category);
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        while(cursor.moveToNext()){
+            String item_name = cursor.getString(0);
+            String item_category = cursor.getString(1);
+            String item_url = cursor.getString(2);
+            String item_icon = cursor.getString(3);
+            items.add(new Node_Item(item_category, item_name, item_url, item_icon));
         }
         db.close();
         return items;

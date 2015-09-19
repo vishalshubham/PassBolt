@@ -23,6 +23,7 @@ public class Remote extends ActionBarActivity {
 	int counter;
 	String DEFAULT_IP_KEY = "com.passbolt.ip_key";
 	String DEFAULT_PORT_KEY = "com.passbolt.port_key";
+    static final String DEBUGTAG = "VC";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class Remote extends ActionBarActivity {
 			ct.add("exit");
 			connected = false;
 		}
+		super.onStop();
 	}
 	
 	@Override
@@ -137,10 +139,18 @@ public class Remote extends ActionBarActivity {
 	
 	public void leftClick(View v) { // on button press, send lc command
 		ct.add("lc");
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String ip = prefs.getString(DEFAULT_IP_KEY, "");
+        int port = prefs.getInt(DEFAULT_PORT_KEY, 0);
+        Log.d(DEBUGTAG, "Ip: " + ip +" :::: port " + port);
 	}
 	
 	public void rightClick(View v) { // on button press, send rc command
 		ct.add("rc");
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String ip = prefs.getString(DEFAULT_IP_KEY, "");
+        int port = prefs.getInt(DEFAULT_PORT_KEY, 0);
+        Log.d(DEBUGTAG, "Ip: " + ip + " :::: port " + port);
 	}
 
 	public void fbClick(View v) { // on button press, send rc command
