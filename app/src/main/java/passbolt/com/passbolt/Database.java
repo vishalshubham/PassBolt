@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Point;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -22,48 +21,58 @@ public class Database extends SQLiteOpenHelper {
     private static final String ITEM_INSTANCE_TABLE = "ITEM_INSTANCE_TABLE";
 
     private static final String CAT_NAME = "CAT_NAME";
+    private static final String CAT_ICON = "CAT_ICON";
+
 
     private static final String ITEM_CAT = "ITEM_CAT";
     private static final String ITEM_NAME = "ITEM_NAME";
+    private static final String ITEM_URL = "ITEM_URL";
+    private static final String ITEM_ICON = "ITEM_ICON";
 
-    private static final String ITEM_INSTANCE = "ITEM_INSTANCE";
+    private static final String ITEM_INSTANCE_USERNAME = "ITEM_INSTANCE_USERNAME";
+    private static final String ITEM_INSTANCE_PASSWORD = "ITEM_INSTANCE_PASSWORD";
+
     public Database(Context context) {
         super(context, "passbolt.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = String.format("create table %s (%s VARCHAR PRIMARY KEY)", CATEGORY_TABLE, CAT_NAME);
+        String sql = String.format("create table %s (%s VARCHAR PRIMARY KEY, %s VARCHAR)", CATEGORY_TABLE, CAT_NAME, CAT_ICON);
         db.execSQL(sql);
-        sql = String.format("create table %s (%s VARCHAR PRIMARY KEY, %s VARCHAR NOT NULL)", ITEM_TABLE, ITEM_NAME, ITEM_CAT);
+        sql = String.format("create table %s (%s VARCHAR PRIMARY KEY, %s VARCHAR NOT NULL, %s VARCHAR NOT NULL, %s VARCHAR)", ITEM_TABLE, ITEM_NAME, ITEM_CAT, ITEM_URL, ITEM_ICON);
         db.execSQL(sql);
-        sql = String.format("create table %s (%s VARCHAR PRIMARY KEY, %s VARCHAR NOT NULL)", ITEM_TABLE, ITEM_NAME, ITEM_CAT);
+        sql = String.format("create table %s (%s VARCHAR, %s VARCHAR NOT NULL, %s VARCHAR NOT NULL, PRIMARY KEY (%s, %s))", ITEM_INSTANCE_TABLE, ITEM_NAME, ITEM_INSTANCE_USERNAME, ITEM_INSTANCE_PASSWORD, ITEM_NAME, ITEM_INSTANCE_USERNAME);
         db.execSQL(sql);
 
-        storeCategory("Social Networks");
-        storeCategory("Financial Banks");
-        storeCategory("Email Accounts");
-        storeCategory("Utilities");
+        storeCategory("Social Networks", "social");
+        storeCategory("Financial Banks", "bank");
+        storeCategory("Email Accounts", "email");
+        storeCategory("Utilities", "other");
 
-        storeItem("Social Networks", "Facebook");
-        storeItem("Social Networks", "Google+");
-        storeItem("Social Networks", "LinkedIn");
-        storeItem("Social Networks", "Twitter");
+        storeItem("Social Networks", "Facebook", "https://www.facebook.com/", "fb");
+        storeItem("Social Networks", "Google+", "https://plus.google.com/", "goog");
+        storeItem("Social Networks", "LinkedIn", "https://www.linkedin.com/", "link");
+        storeItem("Social Networks", "Twitter", "https://www.twitter.com/", "twit");
 
-        storeItem("Financial Banks", "TD Bank");
-        storeItem("Financial Banks", "Scotiabank");
-        storeItem("Financial Banks", "CIBC");
-        storeItem("Financial Banks", "RBC");
+        storeItem("Financial Banks", "TD Bank", "https://www.google.com/", "td");
+        storeItem("Financial Banks", "Scotiabank", "https://www.google.com/", "scot");
+        storeItem("Financial Banks", "CIBC", "https://www.google.com/", "cibc");
+        storeItem("Financial Banks", "RBC", "https://www.google.com/", "rbc");
 
-        storeItem("Email Accounts", "Gmail");
-        storeItem("Email Accounts", "UWaterloo Nexus");
-        storeItem("Email Accounts", "Yahoo");
-        storeItem("Email Accounts", "Outlook");
+        storeItem("Email Accounts", "Gmail", "https://www.google.com/", "gmail");
+        storeItem("Email Accounts", "UWaterloo Nexus", "https://www.google.com/", "nexus");
+        storeItem("Email Accounts", "Yahoo", "https://www.google.com/", "yaho");
+        storeItem("Email Accounts", "Outlook", "https://www.google.com/", "outl");
 
-        storeItem("Utilities", "Fido");
-        storeItem("Utilities", "Skype");
-        storeItem("Utilities", "Rogers");
-        storeItem("Utilities", "Bell");
+        storeItem("Utilities", "Fido", "https://www.google.com/", "fido");
+        storeItem("Utilities", "Skype", "https://www.google.com/", "skyp");
+        storeItem("Utilities", "Rogers", "https://www.google.com/", "rogr");
+        storeItem("Utilities", "Bell", "https://www.google.com/", "bell");
+
+        storeItemInstance("Gmail", "hackthenorth4@gmail.com", "Passbolt");
+        storeItemInstance("Gmail", "vishal.shubham@gmail.com", "Passbolt");
+        //storeItemInstance("Gmail", "hackthenorth4@gmail.com", "Passbolt");
     }
 
     @Override
@@ -71,25 +80,38 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public void storeCategory(String category){
+    public void storeCategory(String category, String icon){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        Log.d(DEBUGTAG, "Category: " + category);
+        Log.d(DEBUGTAG, "Category: " + category + " Icon: " + icon);
         values.put(CAT_NAME, category);
+        values.put(CAT_ICON, icon);
         db.insert(CATEGORY_TABLE, null, values);
         db.close();
     }
 
-    public void storeItem(String category, String item){
+    public void storeItem(String category, String item, String url, String icon){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        Log.d(DEBUGTAG, "Category: " + category + " :::::: Item: " + item);
+        Log.d(DEBUGTAG, "Category: " + category + " :::::: Item: " + item + " :::::: Url: " + url + " :::::: Icon: " + icon);
         values.put(ITEM_NAME, item);
         values.put(ITEM_CAT, category);
+        values.put(ITEM_URL, url);
+        values.put(ITEM_ICON, icon);
         db.insert(ITEM_TABLE, null, values);
         db.close();
     }
 
+    public void storeItemInstance(String item, String username, String password){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        Log.d(DEBUGTAG, "Item: " + item + " :::::: Username: " + username + " :::::: Password: " + password);
+        values.put(ITEM_NAME, item);
+        values.put(ITEM_INSTANCE_USERNAME, username);
+        values.put(ITEM_INSTANCE_PASSWORD, password);
+        db.insert(ITEM_INSTANCE_TABLE, null, values);
+        db.close();
+    }
 
     public List<String> getCategory(){
         List<String> categories = new ArrayList<String>();
