@@ -17,4 +17,5 @@
     <string name="ip_key">com.passbolt.ip_key</string>
     <string name="port_key">com.passbolt.port_key</string>
     <string name="fb_text">Facebook</string>
+    <string name="title_activity_category">CategoryActivity</string>
 </resources>
