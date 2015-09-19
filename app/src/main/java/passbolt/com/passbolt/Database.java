@@ -50,7 +50,27 @@ public class Database extends SQLiteOpenHelper {
         storeCategory("Email Accounts", "email");
         storeCategory("Utilities", "other");
 
-        storeItem("Social Networks", "Facebook", "https://www.facebook.com/", "fb");
+        /*SQLiteDatabase db1 = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CAT_NAME, "Social Networks");
+        values.put(CAT_ICON, "social");
+        db1.insert(CATEGORY_TABLE, null, values);
+
+        values.put(CAT_NAME, "Financial Banks");
+        values.put(CAT_ICON, "bank");
+        db1.insert(CATEGORY_TABLE, null, values);
+
+        values.put(CAT_NAME, "Email Accounts");
+        values.put(CAT_ICON, "email");
+        db1.insert(CATEGORY_TABLE, null, values);
+
+        values.put(CAT_NAME, "Utilities");
+        values.put(CAT_ICON, "other");
+        db1.insert(CATEGORY_TABLE, null, values);
+
+        db1.close();*/
+
+        /*storeItem("Social Networks", "Facebook", "https://www.facebook.com/", "fb");
         storeItem("Social Networks", "Google+", "https://plus.google.com/", "goog");
         storeItem("Social Networks", "LinkedIn", "https://www.linkedin.com/", "link");
         storeItem("Social Networks", "Twitter", "https://www.twitter.com/", "twit");
@@ -72,7 +92,7 @@ public class Database extends SQLiteOpenHelper {
 
         storeItemInstance("Gmail", "hackthenorth4@gmail.com", "Passbolt");
         storeItemInstance("Gmail", "vishal.shubham@gmail.com", "Passbolt");
-        storeItemInstance("Gmail", "waterloopassbolt@gmail.com", "waterlo321");
+        storeItemInstance("Gmail", "waterloopassbolt@gmail.com", "waterlo321");*/
     }
 
     @Override
@@ -151,21 +171,20 @@ public class Database extends SQLiteOpenHelper {
         return items;
     }
 
-    public List<Node_Item> getItemInstance(String item_instance){
-        List<Node_Item> items = new ArrayList<Node_Item>();
+    public List<Node_Item_Instance> getItemInstance(String item){
+        List<Node_Item_Instance> items = new ArrayList<Node_Item_Instance>();
 
         SQLiteDatabase db = getWritableDatabase();
 
-        String sql = String.format("select * from %s where ITEM_CAT = %s", ITEM_TABLE, category);
+        String sql = String.format("select * from %s where ITEM_NAME = %s", ITEM_INSTANCE_TABLE, item);
 
         Cursor cursor = db.rawQuery(sql, null);
 
         while(cursor.moveToNext()){
             String item_name = cursor.getString(0);
-            String item_category = cursor.getString(1);
-            String item_url = cursor.getString(2);
-            String item_icon = cursor.getString(3);
-            items.add(new Node_Item(item_category, item_name, item_url, item_icon));
+            String item_username = cursor.getString(1);
+            String item_password = cursor.getString(2);
+            items.add(new Node_Item_Instance(item_name, item_username, item_password));
         }
         db.close();
         return items;

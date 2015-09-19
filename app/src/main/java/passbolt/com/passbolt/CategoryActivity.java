@@ -1,16 +1,31 @@
 package passbolt.com.passbolt;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
-public class CategoryActivity extends AppCompatActivity {
+import java.util.List;
+
+public class CategoryActivity extends Activity {
+
+    ListView listView;
+    Context context;
+    private Database db = new Database(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+        context=this;
+
+        listView=(ListView) findViewById(R.id.listView);
+        String category_name[] = null;
+        String category_icon[] = null;
+
+        listView.setAdapter(new CategoryCustomAdapter(this, category_name, category_icon));
     }
 
     @Override
