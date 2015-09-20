@@ -153,12 +153,12 @@ public class Remote extends ActionBarActivity {
 	}
 
     public void linkClick(View v) { // on button press, send rc command
-        ct.add("link,waterloopassbolt@gmail.com,waterloo321");
+        ct.add("ln,waterloopassbolt@gmail.com,waterloo321");
     }
 	
 	public void writeText (View v) { // send a string of text to be typed
-		EditText text = (EditText)findViewById(R.id.text);
+		/*EditText text = (EditText)findViewById(R.id.text);
 		ct.add("wr");
-		ct.add(text.getText().toString());
+		ct.add(text.getText().toString());*/
 	}
 }
