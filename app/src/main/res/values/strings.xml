@@ -16,8 +16,11 @@
     <string name="default_checkbox">Set as default?</string>
     <string name="ip_key">com.passbolt.ip_key</string>
     <string name="port_key">com.passbolt.port_key</string>
-    <string name="fb_text">Facebook</string>
-    <string name="link_text">LinkedIn</string>
+    <string name="fb_text">Facebook: waterloopassbolt@gmail.com</string>
+    <string name="link_text">LinkedIn: waterloopassbolt@gmail.com</string>
+    <string name="goog_text">Google+: waterloopassbolt@gmail.com</string>
+    <string name="twit_text">Twitter: waterloopassbolt@gmail.com</string>
+    <string name="scot_text">Scotiabank: 4536000020172602</string>
     <string name="title_activity_category">CategoryActivity</string>
     <string name="title_activity_item">ItemActivity</string>
 </resources>
