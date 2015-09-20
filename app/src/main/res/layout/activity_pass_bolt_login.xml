@@ -33,15 +33,6 @@
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF"/>
 
-            <!--HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout android:id="@+id/cardParentLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" -->
-
             <EditText android:id="@+id/card_id" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="@string/prompt_card"
                 android:inputType="textPassword"
@@ -49,17 +40,6 @@
                 android:editable="false"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF"/>
-
-            <!--ToggleButton
-                android:id="@+id/cardDetectBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ToggleButton"
-                android:textOn="Scan Card ON"
-                android:textOff="Scan Card OFF"/-->
-
-            <!--/LinearLayout>
-        </HorizontalScrollView-->
 
             <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
