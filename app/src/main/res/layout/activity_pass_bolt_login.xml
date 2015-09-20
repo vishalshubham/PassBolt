@@ -5,7 +5,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bigh.nfcapp.util.PassBoltLoginActivity">
+    tools:context="com.bigh.nfcapp.util.PassBoltLoginActivity"
+    android:background="@drawable/login_image2">
 
     <!-- Login progress -->
     <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
@@ -21,12 +22,16 @@
             <AutoCompleteTextView android:id="@+id/username" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="@string/prompt_username"
                 android:inputType="textEmailAddress" android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"/>
 
             <EditText android:id="@+id/password" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="@string/prompt_pin"
                 android:inputType="textPassword"
-                android:maxLines="1" android:singleLine="true" />
+                android:maxLines="1" android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"/>
 
             <!--HorizontalScrollView
                 android:layout_width="match_parent"
@@ -41,7 +46,9 @@
                 android:layout_height="wrap_content" android:hint="@string/prompt_card"
                 android:inputType="textPassword"
                 android:maxLines="1" android:singleLine="true"
-                android:editable="false"/>
+                android:editable="false"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"/>
 
             <!--ToggleButton
                 android:id="@+id/cardDetectBtn"
